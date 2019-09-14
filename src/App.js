@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import List from './List'
-import './App.css';
+import './App.scss';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class App extends Component {
   }
 
   onSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     this.setState({
       term: '',
       items: [...this.state.items, this.state.term]
@@ -32,13 +32,36 @@ export default class App extends Component {
     }
   }
 
+  clearInput = () => {
+    this.setState({
+      term: ''
+    });
+  }
+
   render() {
     return (
       <div>
-        <form className="App" onSubmit={this.onSubmit}>
-          <input value={this.state.term} onChange={this.onChange} />
-          <button>Submit</button>
-        </form>
+        <header>
+          <h1>TODO List</h1>
+
+          <form className="App" onSubmit={this.onSubmit}>
+            <fieldset class="field-container">
+              <input 
+                type="text" 
+                placeholder="Add something here..."
+                class="field"
+                value={this.state.term}
+                onChange={this.onChange} />
+
+              <div class="icons-container">
+                <div class="icon-close" onClick={this.clearInput}>
+                  <div class="x-up"></div>
+                  <div class="x-down"></div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </header>
 
         <List
           items={this.state.items}
